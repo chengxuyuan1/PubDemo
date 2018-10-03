@@ -20,7 +20,7 @@ def parseData(html):
     movieList=soup.find_all('div',attrs={'class':'pl2'})
     #print(movieList)
     for movie in movieList:
-        movieName=movie.find('a').getText().strip('\n').strip('\t').strip('\r')
+        movieName=movie.find('a').getText().rstrip().split('/')[0].strip()
         movieScore=movie.find('span',attrs={'class':'rating_nums'}).getText()
         movieContry=movie.find('p',attrs={'class':'pl'}).getText().rstrip().split('/')[0].rstrip().split('(')[1]
         nameList.append(movieName)
@@ -35,7 +35,7 @@ def saveData(nameList,scoreList,countryList):
     #print(nameList)
     resFile=open('result.txt','w',encoding='utf-8')
     for i in range(len(nameList)):
-        lineText='名字:'+nameList[i]+'\t得分:'+scoreList[i]+'\t国家：'+coutryList[i]
+        lineText='名字:'+nameList[i]+' 得分:'+scoreList[i]+' 国家:'+coutryList[i]
         resFile.write(lineText+'\n')
     resFile.close()
 
